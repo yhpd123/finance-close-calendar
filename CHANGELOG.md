@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2026-03-23
+
+### Added
+
+- Portable ZIP packaging for non-technical users who want to unzip and open the app directly
+- File-mode compatibility using hash routing for local portable usage
+- README guidance covering demo plus PWA, portable ZIP, and npm usage paths
+
+### Changed
+
+- Service worker registration now skips file protocol mode to avoid portable runtime issues
+
 ## [0.1.0] - 2026-03-23
 
 ### Added

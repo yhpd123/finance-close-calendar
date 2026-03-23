@@ -1,6 +1,6 @@
 # Finance Close Calendar
 
-[![Version](https://img.shields.io/badge/version-0.1.0-0d7a6f.svg)](./package.json)
+[![Version](https://img.shields.io/badge/version-0.1.1-0d7a6f.svg)](./package.json)
 [![React](https://img.shields.io/badge/React-19-1f6f78.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-1d4ed8.svg)](https://www.typescriptlang.org/)
 [![PWA](https://img.shields.io/badge/PWA-offline%20ready-b86f2d.svg)](./public/manifest.webmanifest)
@@ -15,7 +15,39 @@ It combines fiscal setup, close-day planning, role ownership, task tracking, cal
 
 - Demo: [https://yhpd123.github.io/finance-close-calendar/](https://yhpd123.github.io/finance-close-calendar/)
 - Repository: [https://github.com/yhpd123/finance-close-calendar](https://github.com/yhpd123/finance-close-calendar)
-- Release: [v0.1.0](https://github.com/yhpd123/finance-close-calendar/releases/tag/v0.1.0)
+- Latest Release: [v0.1.1](https://github.com/yhpd123/finance-close-calendar/releases/tag/v0.1.1)
+
+## Ways To Use
+
+### 1. Demo + PWA Install
+
+Best for most finance users.
+
+- Open the live demo: [https://yhpd123.github.io/finance-close-calendar/](https://yhpd123.github.io/finance-close-calendar/)
+- In Chrome or Edge, click `Install App`
+- Use it like a desktop app without Node.js or npm
+
+### 2. Portable ZIP
+
+Best for users who want a downloadable package without running commands.
+
+- Download the portable package from the latest release
+- Unzip the file
+- On Windows, double-click `Start-Finance-Close-Calendar.bat`
+- On macOS, double-click `Start-Finance-Close-Calendar.command`
+- Use Chrome or Edge for the best experience
+
+Portable package:
+
+- [finance-close-calendar-portable.zip](https://github.com/yhpd123/finance-close-calendar/releases/download/v0.1.1/finance-close-calendar-portable.zip)
+
+### 3. npm / Developer Mode
+
+Best for internal developers or product teams who want to modify the project.
+
+- `npm install`
+- `npm run dev`
+- `npm run build`
 
 ## Screenshots
 
@@ -155,6 +187,12 @@ Both **Tasks** and **Role Settings** include template download so users can conf
 
 ## Getting Started
 
+This repository can be used in three ways:
+
+- Demo plus PWA install
+- Portable ZIP
+- npm for local development
+
 ### Requirements
 
 - Node.js 20+ recommended
@@ -249,6 +287,15 @@ This repository includes:
 
 After launching in a supported browser, users can install the app for a more native desktop experience.
 
+## Portable ZIP Support
+
+This repository also supports a portable ZIP package for non-technical users.
+
+- The app can run directly from an unzipped folder
+- File mode uses hash routing for compatibility
+- Service worker is skipped in portable mode
+- Data still stays in the local browser profile on that device
+
 ## Project Structure
 
 ```text
@@ -290,4 +337,4 @@ This MVP is intentionally simple and local-first. A production enterprise versio
 
 ## License
 
-This repository is currently positioned as a prototype / internal demonstration project. Add your preferred license before broader public distribution.
+This project is available under the [MIT License](./LICENSE).

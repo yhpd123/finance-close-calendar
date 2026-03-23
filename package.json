@@ -1,12 +1,14 @@
 {
   "name": "finance-close-calendar",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "build:pages": "tsc --noEmit && VITE_BASE_PATH=/finance-close-calendar/ vite build",
+    "build:portable": "tsc --noEmit && VITE_BASE_PATH=./ VITE_PORTABLE_MODE=1 vite build --outDir portable/app",
+    "package:portable": "npm run build:portable && node scripts/create-portable-package.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -33,7 +33,12 @@ async function sendAssetsToServiceWorker(registration: ServiceWorkerRegistration
 }
 
 export function registerServiceWorker() {
-  if (!import.meta.env.PROD || !('serviceWorker' in navigator)) {
+  if (
+    !import.meta.env.PROD ||
+    !('serviceWorker' in navigator) ||
+    window.location.protocol === 'file:' ||
+    import.meta.env.VITE_PORTABLE_MODE === '1'
+  ) {
     return;
   }
 
