@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Finance Close Calendar</title>
+  <desc id="desc">Calendar icon with finance close markers.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d7a6f" />
+      <stop offset="100%" stop-color="#0a544e" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f4c168" />
+      <stop offset="100%" stop-color="#d85e31" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)" />
+  <rect x="88" y="128" width="336" height="264" rx="40" fill="#fefaf2" />
+  <rect x="88" y="128" width="336" height="80" rx="40" fill="#1d3b36" />
+  <circle cx="164" cy="96" r="28" fill="#f4c168" />
+  <circle cx="348" cy="96" r="28" fill="#f4c168" />
+  <path d="M164 68v92M348 68v92" stroke="#fefaf2" stroke-linecap="round" stroke-width="18" />
+  <rect x="128" y="236" width="88" height="56" rx="16" fill="#dce9e3" />
+  <rect x="236" y="236" width="148" height="56" rx="16" fill="url(#accent)" />
+  <rect x="128" y="314" width="118" height="40" rx="16" fill="#dce9e3" />
+  <rect x="262" y="314" width="122" height="40" rx="16" fill="#dce9e3" />
+</svg>

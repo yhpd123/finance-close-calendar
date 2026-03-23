@@ -1,0 +1,64 @@
+:root {
+  color-scheme: light;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background:
+    radial-gradient(circle at top left, rgba(13, 122, 111, 0.2), transparent 34%),
+    radial-gradient(circle at top right, rgba(216, 94, 49, 0.14), transparent 28%),
+    linear-gradient(180deg, #f4efe6 0%, #efe7d8 100%);
+  color: #20302b;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --bg-page: rgba(255, 249, 241, 0.74);
+  --bg-panel: rgba(255, 253, 248, 0.86);
+  --bg-panel-strong: rgba(255, 255, 255, 0.96);
+  --bg-muted: #f2ece2;
+  --text-main: #20302b;
+  --text-soft: #5d6d67;
+  --text-faint: #7b8a84;
+  --border: rgba(32, 48, 43, 0.08);
+  --border-strong: rgba(13, 122, 111, 0.18);
+  --accent: #0d7a6f;
+  --accent-deep: #0a544e;
+  --accent-soft: rgba(13, 122, 111, 0.12);
+  --accent-warm: #d85e31;
+  --accent-warm-soft: rgba(216, 94, 49, 0.13);
+  --warning: #b86f2d;
+  --warning-soft: rgba(184, 111, 45, 0.14);
+  --success: #2d7f59;
+  --shadow-lg: 0 28px 80px rgba(43, 50, 52, 0.16);
+  --shadow-md: 0 14px 42px rgba(43, 50, 52, 0.12);
+  --radius-lg: 28px;
+  --radius-md: 20px;
+  --radius-sm: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text-main);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
