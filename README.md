@@ -263,7 +263,8 @@ This MVP is intentionally simple and local-first. A production enterprise versio
 ## Contact
 
 - Author: James
-- Email: [yhpd1234@gmail.com](mailto:yhpd1234@gmail.com)
+- Feedback and bug reports: [GitHub Issues](https://github.com/yhpd123/finance-close-calendar/issues)
+- Questions and product discussion: [GitHub Discussions](https://github.com/yhpd123/finance-close-calendar/discussions)
 
 ## License
 

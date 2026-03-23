@@ -77,7 +77,20 @@ export function AppShell({ children }: { children: ReactNode }) {
       <footer className="app-footer">
         <span>© 2026 Finance Close Calendar Prototype</span>
         <span>Author: James</span>
-        <a href="mailto:yhpd1234@gmail.com">yhpd1234@gmail.com</a>
+        <a
+          href="https://github.com/yhpd123/finance-close-calendar/issues"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub Issues
+        </a>
+        <a
+          href="https://github.com/yhpd123/finance-close-calendar/discussions"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub Discussions
+        </a>
       </footer>
     </div>
   );
