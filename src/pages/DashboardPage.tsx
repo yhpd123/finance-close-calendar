@@ -1,3 +1,4 @@
+import { ChangeEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DashboardInsights } from '../components/dashboard/DashboardInsights';
 import { CloseTimeline } from '../components/close/CloseTimeline';
@@ -6,6 +7,7 @@ import { StatCard } from '../components/common/StatCard';
 import { useAppData } from '../context/AppDataContext';
 import {
   countTodayTasks,
+  downloadBackupFile,
   formatDateKey,
   formatLongDate,
   formatShortDate,
@@ -13,12 +15,15 @@ import {
   getFiscalInfoByDate,
   isOverdue,
   parseDateKey,
+  readBackupFile,
   sortTasks,
 } from '../utils';
 
 export function DashboardPage() {
   const navigate = useNavigate();
-  const { fiscalSettings, closeSettings, roles, tasks } = useAppData();
+  const { fiscalSettings, closeSettings, roles, tasks, exportBackup, importBackup } = useAppData();
+  const backupInputRef = useRef<HTMLInputElement | null>(null);
+  const [dataMessage, setDataMessage] = useState<{ tone: 'success' | 'error'; text: string } | null>(null);
   const today = new Date();
   const todayKey = formatDateKey(today);
   const todayDate = new Date(`${todayKey}T12:00:00`);
@@ -29,6 +34,41 @@ export function DashboardPage() {
   const upcomingTasks = sortTasks(
     tasks.filter((task) => task.status !== 'Done' && parseDateKey(task.dueDate) >= todayDate),
   ).slice(0, 5);
+
+  const handleBackupDownload = () => {
+    const backup = exportBackup();
+    downloadBackupFile(
+      `finance-close-calendar-backup-${todayKey}.json`,
+      backup,
+    );
+    setDataMessage({
+      tone: 'success',
+      text: `Backup downloaded with ${backup.tasks.length} tasks and ${backup.roles.length} roles.`,
+    });
+  };
+
+  const handleBackupImport = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    try {
+      const payload = await readBackupFile(file);
+      const result = importBackup(payload);
+      setDataMessage({
+        tone: 'success',
+        text: `Backup restored with ${result.taskCount} tasks and ${result.roleCount} roles.`,
+      });
+    } catch (error) {
+      setDataMessage({
+        tone: 'error',
+        text: error instanceof Error ? error.message : 'Unable to restore backup.',
+      });
+    } finally {
+      event.target.value = '';
+    }
+  };
 
   const goToTasks = (filters: {
     status?: string;
@@ -114,6 +154,42 @@ export function DashboardPage() {
             >
               Manage Roles
             </button>
+          </div>
+
+          <div className="action-section">
+            <div>
+              <span className="eyebrow">Local Data</span>
+              <h3>Backup and restore</h3>
+              <p className="section-copy">
+                Save a JSON backup before sharing devices or moving to another laptop.
+              </p>
+            </div>
+            <div className="quick-actions">
+              <button className="button button-secondary" type="button" onClick={handleBackupDownload}>
+                Download Backup
+              </button>
+              <button
+                className="button button-secondary"
+                type="button"
+                onClick={() => backupInputRef.current?.click()}
+              >
+                Restore Backup
+              </button>
+              <input
+                ref={backupInputRef}
+                className="hidden-input"
+                type="file"
+                accept=".json"
+                onChange={(event) => void handleBackupImport(event)}
+              />
+            </div>
+            {dataMessage ? (
+              <div
+                className={`status-banner${dataMessage.tone === 'error' ? ' status-banner-error' : ''}`}
+              >
+                {dataMessage.text}
+              </div>
+            ) : null}
           </div>
         </article>
       </section>

@@ -409,6 +409,30 @@ body {
   justify-content: space-between;
 }
 
+.action-section + .action-section {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(32, 48, 43, 0.08);
+}
+
+.hidden-input {
+  display: none;
+}
+
+.status-banner {
+  margin-top: 14px;
+  padding: 13px 15px;
+  border-radius: 16px;
+  background: rgba(47, 133, 90, 0.1);
+  color: var(--success);
+  font-weight: 700;
+}
+
+.status-banner-error {
+  background: rgba(180, 67, 51, 0.12);
+  color: #9f3b2d;
+}
+
 .badge {
   display: inline-flex;
   align-items: center;

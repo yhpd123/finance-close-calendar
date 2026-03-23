@@ -1,6 +1,6 @@
 # Finance Close Calendar
 
-[![Version](https://img.shields.io/badge/version-0.1.1-0d7a6f.svg)](./package.json)
+[![Version](https://img.shields.io/badge/version-0.1.2-0d7a6f.svg)](./package.json)
 [![React](https://img.shields.io/badge/React-19-1f6f78.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-1d4ed8.svg)](https://www.typescriptlang.org/)
 [![PWA](https://img.shields.io/badge/PWA-offline%20ready-b86f2d.svg)](./public/manifest.webmanifest)
@@ -15,7 +15,7 @@ It combines fiscal setup, close-day planning, role ownership, task tracking, cal
 
 - Demo: [https://yhpd123.github.io/finance-close-calendar/](https://yhpd123.github.io/finance-close-calendar/)
 - Repository: [https://github.com/yhpd123/finance-close-calendar](https://github.com/yhpd123/finance-close-calendar)
-- Latest Release: [v0.1.1](https://github.com/yhpd123/finance-close-calendar/releases/tag/v0.1.1)
+- Latest Release: [v0.1.2](https://github.com/yhpd123/finance-close-calendar/releases/tag/v0.1.2)
 
 ## Ways To Use
 
@@ -33,13 +33,14 @@ Best for users who want a downloadable package without running commands.
 
 - Download the portable package from the latest release
 - Unzip the file
+- Open `START-HERE.html` for step-by-step guidance
 - On Windows, double-click `Start-Finance-Close-Calendar.bat`
 - On macOS, double-click `Start-Finance-Close-Calendar.command`
 - Use Chrome or Edge for the best experience
 
 Portable package:
 
-- [finance-close-calendar-portable.zip](https://github.com/yhpd123/finance-close-calendar/releases/download/v0.1.1/finance-close-calendar-portable.zip)
+- [finance-close-calendar-portable.zip](https://github.com/yhpd123/finance-close-calendar/releases/download/v0.1.2/finance-close-calendar-portable.zip)
 
 ### 3. npm / Developer Mode
 
@@ -267,6 +268,13 @@ Use **Dashboard** to:
 - inspect overdue pressure
 - drill into filtered task slices for action
 
+### 6. Back Up Local Data
+
+Use the **Dashboard** quick actions to:
+
+- download a JSON backup of fiscal settings, close settings, roles, and tasks
+- restore a backup when moving to another device or browser profile
+
 ## Local-First Behavior
 
 This project stores app data in browser local storage. That means:
@@ -292,6 +300,7 @@ After launching in a supported browser, users can install the app for a more nat
 This repository also supports a portable ZIP package for non-technical users.
 
 - The app can run directly from an unzipped folder
+- The package includes `START-HERE.html` plus Windows and macOS launchers
 - File mode uses hash routing for compatibility
 - Service worker is skipped in portable mode
 - Data still stays in the local browser profile on that device

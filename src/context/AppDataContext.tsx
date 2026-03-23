@@ -7,6 +7,7 @@ import {
   createDemoTasks,
 } from '../data/demoData';
 import {
+  AppBackup,
   CloseSettings,
   FiscalSettings,
   RoleDraft,
@@ -22,6 +23,8 @@ interface AppDataContextValue {
   closeSettings: CloseSettings;
   roles: RoleItem[];
   tasks: TaskItem[];
+  exportBackup: () => AppBackup;
+  importBackup: (payload: unknown) => { roleCount: number; taskCount: number };
   saveFiscalSettings: (settings: FiscalSettings) => void;
   restoreFiscalDefaults: () => void;
   saveCloseSettings: (settings: CloseSettings) => void;
@@ -120,6 +123,26 @@ function normalizeRoles(input: unknown): RoleItem[] {
   return normalized.length > 0 ? normalized : createDemoRoles();
 }
 
+function normalizeTasks(
+  input: unknown,
+  roles: RoleItem[],
+  useDemoFallback: boolean,
+): TaskItem[] {
+  if (!Array.isArray(input)) {
+    return useDemoFallback ? createDemoTasks(roles) : [];
+  }
+
+  const normalized = input.map((task, index) =>
+    normalizeTask(isRecord(task) ? task : {}, roles, index),
+  );
+
+  if (normalized.length > 0 || !useDemoFallback) {
+    return normalized;
+  }
+
+  return createDemoTasks(roles);
+}
+
 function normalizeTask(task: Partial<TaskItem>, roles: RoleItem[], index: number): TaskItem {
   const fallbackRoleId = roles[0]?.id || '';
   const matchedRole =
@@ -150,9 +173,7 @@ function buildInitialAppState() {
     createDemoCloseSettings(),
   ));
   const storedTasks = loadFromStorage(STORAGE_KEYS.tasks, createDemoTasks(roles));
-  const tasks = (Array.isArray(storedTasks) ? storedTasks : createDemoTasks(roles)).map((task, index) =>
-    normalizeTask(task, roles, index),
-  );
+  const tasks = normalizeTasks(storedTasks, roles, true);
 
   return {
     fiscalSettings,
@@ -190,6 +211,32 @@ export function AppProvider({ children }: { children: ReactNode }) {
     closeSettings,
     roles,
     tasks,
+    exportBackup: () => ({
+      app: 'finance-close-calendar',
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      fiscalSettings,
+      closeSettings,
+      roles,
+      tasks,
+    }),
+    importBackup: (payload) => {
+      const source = isRecord(payload) ? payload : {};
+      const nextRoles = normalizeRoles(source.roles);
+      const nextFiscalSettings = normalizeFiscalSettings(source.fiscalSettings);
+      const nextCloseSettings = normalizeCloseSettings(source.closeSettings);
+      const nextTasks = normalizeTasks(source.tasks, nextRoles, false);
+
+      setFiscalSettings(nextFiscalSettings);
+      setCloseSettings(nextCloseSettings);
+      setRoles(nextRoles);
+      setTasks(nextTasks);
+
+      return {
+        roleCount: nextRoles.length,
+        taskCount: nextTasks.length,
+      };
+    },
     saveFiscalSettings: setFiscalSettings,
     restoreFiscalDefaults: () => setFiscalSettings(createDemoFiscalSettings()),
     saveCloseSettings: setCloseSettings,

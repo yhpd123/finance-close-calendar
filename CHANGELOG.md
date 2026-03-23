@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2] - 2026-03-23
+
+### Added
+
+- Dashboard backup and restore actions for local JSON export and import
+- Portable `START-HERE.html` guide for non-technical users
+- Portable launchers for macOS and Windows with clearer onboarding instructions
+
+### Changed
+
+- Portable mode now hides the PWA install button to reduce confusion
+- Portable distribution guidance now recommends launcher scripts instead of opening files directly
+
 ## [0.1.1] - 2026-03-23
 
 ### Added

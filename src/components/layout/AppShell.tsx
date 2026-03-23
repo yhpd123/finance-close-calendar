@@ -18,6 +18,7 @@ const settingsNavigation = [
 export function AppShell({ children }: { children: ReactNode }) {
   const { canInstall, promptInstall } = useInstallPrompt();
   const [now, setNow] = useState(() => new Date());
+  const isPortableMode = import.meta.env.VITE_PORTABLE_MODE === '1';
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -39,7 +40,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <div className="topbar-date">{formatLongDate(now)}</div>
             <div className="topbar-time">{formatTimeLabel(now)}</div>
           </div>
-          {canInstall ? (
+          {!isPortableMode && canInstall ? (
             <button className="button button-secondary" type="button" onClick={() => void promptInstall()}>
               Install App
             </button>

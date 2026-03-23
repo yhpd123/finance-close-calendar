@@ -93,6 +93,16 @@ export interface CalendarSettingsBundle {
   tasks: TaskItem[];
 }
 
+export interface AppBackup {
+  app: 'finance-close-calendar';
+  version: number;
+  exportedAt: string;
+  fiscalSettings: FiscalSettings;
+  closeSettings: CloseSettings;
+  roles: RoleItem[];
+  tasks: TaskItem[];
+}
+
 export const TASK_STATUS_OPTIONS: TaskStatus[] = ['Not Started', 'In Progress', 'Done'];
 export const TASK_PRIORITY_OPTIONS: TaskPriority[] = ['Low', 'Medium', 'High'];
 export const PERIOD_TYPE_OPTIONS: PeriodType[] = ['natural', '445', '454', '544'];
