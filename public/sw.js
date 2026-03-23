@@ -1,13 +1,23 @@
 const CACHE_NAME = 'finance-close-calendar-v1';
+const BASE_PATH = self.location.pathname.replace(/\/sw\.js$/, '');
+const ROOT_URL = BASE_PATH ? `${BASE_PATH}/` : '/';
+
+function withBase(path) {
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${BASE_PATH}${normalizedPath}` || normalizedPath;
+}
+
+const INDEX_URL = withBase('/index.html');
+const OFFLINE_URL = withBase('/offline.html');
 const APP_SHELL = [
-  '/',
-  '/index.html',
-  '/offline.html',
-  '/manifest.webmanifest',
-  '/icons/app-icon.svg',
-  '/icons/icon-192.svg',
-  '/icons/icon-512.svg',
-  '/icons/maskable-icon.svg',
+  ROOT_URL,
+  INDEX_URL,
+  OFFLINE_URL,
+  withBase('/manifest.webmanifest'),
+  withBase('/icons/app-icon.svg'),
+  withBase('/icons/icon-192.svg'),
+  withBase('/icons/icon-512.svg'),
+  withBase('/icons/maskable-icon.svg'),
 ];
 
 self.addEventListener('install', (event) => {
@@ -61,12 +71,12 @@ self.addEventListener('fetch', (event) => {
       fetch(request)
         .then((response) => {
           const responseClone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put('/index.html', responseClone));
+          caches.open(CACHE_NAME).then((cache) => cache.put(INDEX_URL, responseClone));
           return response;
         })
         .catch(async () => {
-          const cachedApp = await caches.match('/index.html');
-          return cachedApp || caches.match('/offline.html');
+          const cachedApp = await caches.match(INDEX_URL);
+          return cachedApp || caches.match(OFFLINE_URL);
         }),
     );
     return;
@@ -91,7 +101,7 @@ self.addEventListener('fetch', (event) => {
 
           return response;
         })
-        .catch(() => caches.match('/offline.html'));
+        .catch(() => caches.match(OFFLINE_URL));
     }),
   );
 });

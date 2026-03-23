@@ -1,4 +1,16 @@
+function getBaseUrl() {
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  return baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+}
+
+function getBasePath() {
+  const baseUrl = getBaseUrl();
+  return baseUrl === '/' ? '' : baseUrl.replace(/\/$/, '');
+}
+
 function getCacheableAssetPaths(): string[] {
+  const baseUrl = getBaseUrl();
+  const basePath = getBasePath();
   const urls = performance
     .getEntriesByType('resource')
     .map((entry) => entry.name)
@@ -8,7 +20,7 @@ function getCacheableAssetPaths(): string[] {
       return `${parsed.pathname}${parsed.search}`;
     });
 
-  return Array.from(new Set(['/', '/index.html', ...urls]));
+  return Array.from(new Set([baseUrl, `${basePath}/index.html`, ...urls]));
 }
 
 async function sendAssetsToServiceWorker(registration: ServiceWorkerRegistration) {
@@ -27,7 +39,7 @@ export function registerServiceWorker() {
 
   window.addEventListener('load', async () => {
     try {
-      const registration = await navigator.serviceWorker.register('/sw.js');
+      const registration = await navigator.serviceWorker.register(`${getBaseUrl()}sw.js`);
       await navigator.serviceWorker.ready;
       await sendAssetsToServiceWorker(registration);
     } catch (error) {

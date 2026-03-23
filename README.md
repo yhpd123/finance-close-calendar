@@ -5,9 +5,31 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-1d4ed8.svg)](https://www.typescriptlang.org/)
 [![PWA](https://img.shields.io/badge/PWA-offline%20ready-b86f2d.svg)](./public/manifest.webmanifest)
 
+> Local-first finance close planning workspace for fiscal calendars, close windows, task ownership, and daily execution.
+
 Finance Close Calendar is a production-style MVP for finance teams that need a close management workspace without standing up a backend.
 
 It combines fiscal setup, close-day planning, role ownership, task tracking, calendar visibility, Excel import, and offline-first local usage in one installable web app.
+
+## Live Demo
+
+- Demo: [https://yhpd123.github.io/finance-close-calendar/](https://yhpd123.github.io/finance-close-calendar/)
+- Repository: [https://github.com/yhpd123/finance-close-calendar](https://github.com/yhpd123/finance-close-calendar)
+- Release: [v0.1.0](https://github.com/yhpd123/finance-close-calendar/releases/tag/v0.1.0)
+
+## Screenshots
+
+### Dashboard
+
+![Dashboard screenshot](docs/screenshots/dashboard.png)
+
+### Tasks
+
+![Tasks screenshot](docs/screenshots/tasks.png)
+
+### Calendar
+
+![Calendar screenshot](docs/screenshots/calendar.png)
 
 ## Why This Project Exists
 
