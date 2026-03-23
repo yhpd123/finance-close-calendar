@@ -1,78 +1,126 @@
 # Finance Close Calendar
 
-Finance Close Calendar is a production-style MVP prototype for finance teams that need a lightweight close management workspace without standing up a backend.
+[![Version](https://img.shields.io/badge/version-0.1.0-0d7a6f.svg)](./package.json)
+[![React](https://img.shields.io/badge/React-19-1f6f78.svg)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-1d4ed8.svg)](https://www.typescriptlang.org/)
+[![PWA](https://img.shields.io/badge/PWA-offline%20ready-b86f2d.svg)](./public/manifest.webmanifest)
 
-It combines fiscal calendar setup, close window planning, task tracking, role ownership, calendar visualization, Excel import, and offline-first local usage in a single web app and installable PWA.
+Finance Close Calendar is a production-style MVP for finance teams that need a close management workspace without standing up a backend.
 
-## Who This Is For
+It combines fiscal setup, close-day planning, role ownership, task tracking, calendar visibility, Excel import, and offline-first local usage in one installable web app.
+
+## Why This Project Exists
+
+Many finance close processes still live across spreadsheets, chat threads, and manually maintained checklists. This prototype turns that workflow into a focused desktop-first workspace that helps teams:
+
+- define fiscal and close rules clearly
+- assign task ownership by functional role
+- monitor progress and overdue items visually
+- drill from dashboard metrics into concrete task lists
+- keep working offline with browser-local data
+
+## Target Users
 
 - Finance controllership teams running monthly, quarterly, or year-end close
 - Accounting operations teams that need a lightweight local task register
-- Product or design teams prototyping close orchestration workflows
-- Internal tool builders who want a frontend-only finance close starter
+- Internal product teams prototyping close orchestration workflows
+- Builders exploring a frontend-only finance operations tool
 
-## What Problems It Solves
+## What You Can Do
 
-- Define fiscal year rules and preview fiscal periods
-- Configure close day windows such as `C - 5` to `C + 5`
-- Organize close tasks by role, priority, status, and due date
-- Track overdue items and in-progress execution from a dashboard
-- Drill down from dashboard insights into filtered task views
-- Import tasks and role masters from Excel templates
-- Use the app offline with local browser storage and PWA install support
+| Area | What it supports |
+| --- | --- |
+| Dashboard | Today card, fiscal context, close context, upcoming tasks, role progress, status mix, priority mix, overdue and drill-down analysis |
+| Fiscal Settings | Fiscal start date, `natural` / `445` / `454` / `544` models, live preview of fiscal year output |
+| Close Settings | Close day window rules like `C - 5` to `C + 5`, timeline visibility, close mapping preview |
+| Calendar | Month view, today highlight, close-day highlight, task badges, day-level detail |
+| Tasks | Compact list-first register, add/edit/delete, filter by keyword, role, status, priority, overdue |
+| Role Settings | Role master maintenance, manual entry, Excel import, ownership mapping for tasks |
+| PWA | Install prompt, service worker, offline open support, local browser persistence |
 
-## Core Modules
+## Product Flow
 
-### Workspace Modules
+1. Configure the fiscal calendar in **Fiscal Settings**
+2. Define the close-day window in **Close Settings**
+3. Create or import ownership roles in **Role Settings**
+4. Add or import tasks in **Tasks**
+5. Monitor execution in **Dashboard**
+6. Use **Calendar** and drill-down filters for day-by-day and role-by-role analysis
 
-- **Dashboard**
-  - Today card
-  - Fiscal period and close context
-  - Upcoming task visibility
-  - Status and priority insights
-  - Team or role-based progress views
-  - Drill-down into filtered task lists
-
-- **Calendar**
-  - Monthly calendar view
-  - Current day highlight
-  - Close day highlight
-  - Task badges by day
-  - Daily task detail lookup
-
-- **Tasks**
-  - Compact task register optimized for list-first review
-  - Add, edit, and delete tasks
-  - Filter by keyword, role, status, priority, and overdue state
-  - Excel import with template download
-
-### Admin / Setup Modules
-
-- **Fiscal Settings**
-  - Fiscal start date
-  - Period type: `natural`, `445`, `454`, `544`
-  - Live fiscal calendar preview
-
-- **Close Settings**
-  - Configurable close offsets such as `C - n` to `C + n`
-  - Close timeline visibility toggle
-  - Close window mapping preview
-
-- **Role Settings**
-  - Maintain role master such as Revenue, Inventory, Intercompany
-  - Excel import with template download
-  - Use roles as task ownership selection
-
-## Product Characteristics
+## Experience Highlights
 
 - Frontend-only architecture
 - No backend
 - No cloud dependency
 - No login required
-- Browser local storage persistence
-- Demo data is seeded on first launch
-- PWA install support
-- Offline open support through service worker
+- Local browser storage
+- Demo configuration and demo tasks seeded on first launch
+- Excel template download before import
+- PWA install support for desktop-like usage
+
+## Architecture At A Glance
+
+```mermaid
+flowchart LR
+    A["Dashboard"] --> D["Filtered Tasks"]
+    B["Calendar"] --> D
+    C["Settings"] --> E["Local App State"]
+    D --> E
+    E --> F["localStorage"]
+    E --> G["PWA Shell"]
+    H["Excel Import"] --> D
+    I["Role Master"] --> D
+```
+
+## App Modules
+
+### Workspace Modules
+
+- **Dashboard**
+  - shows today context, current fiscal labels, close-day positioning, task health, and chart-style insights
+  - supports drill-down into filtered task views
+
+- **Calendar**
+  - provides a month view with close-day highlighting and task density badges
+  - lets users inspect a specific day in context
+
+- **Tasks**
+  - optimized for list-first review
+  - supports add, edit, delete, compact filters, and Excel import
+
+### Admin Modules
+
+- **Fiscal Settings**
+  - choose fiscal start date and period model
+  - preview fiscal year output immediately
+
+- **Close Settings**
+  - configure close timeline offsets such as `C - 5` to `C + 5`
+  - preview close mapping for the current month
+
+- **Role Settings**
+  - maintain finance ownership roles such as Revenue, Inventory, and Intercompany
+  - import role masters from Excel
+
+## Excel Import
+
+Both **Tasks** and **Role Settings** include template download so users can confirm file structure before uploading.
+
+### Task Import Columns
+
+- `title`
+- `description`
+- `scheduledDate`
+- `dueDate`
+- `status`
+- `priority`
+- `role`
+
+### Role Import Columns
+
+- `name`
+- `description`
+- `color`
 
 ## Tech Stack
 
@@ -81,7 +129,7 @@ It combines fiscal calendar setup, close window planning, task tracking, role ow
 - Vite
 - React Router
 - CSS
-- `xlsx` for spreadsheet import and template generation
+- `xlsx`
 
 ## Getting Started
 
@@ -96,21 +144,19 @@ It combines fiscal calendar setup, close window planning, task tracking, role ow
 npm install
 ```
 
-### Run in Development
+### Start Development Server
 
 ```bash
 npm run dev
 ```
 
-Then open the local Vite URL shown in the terminal.
-
-### Build for Production
+### Build Production Bundle
 
 ```bash
 npm run build
 ```
 
-### Preview Production Build
+### Preview Production Bundle
 
 ```bash
 npm run preview
@@ -118,28 +164,26 @@ npm run preview
 
 ## How To Use
 
-### 1. Set up fiscal rules
+### 1. Set Fiscal Rules
 
-Go to **Fiscal Settings** and choose:
+Open **Fiscal Settings** and choose:
 
 - fiscal start date
 - fiscal period model
 
-The preview panel updates immediately so users can validate the fiscal calendar outcome before saving.
+The preview updates immediately so finance users can validate the year structure before saving.
 
-### 2. Configure the close window
+### 2. Set Close-Day Logic
 
-Go to **Close Settings** and define:
+Open **Close Settings** and define:
 
 - close start rule
 - close range from `C - n` to `C + n`
-- whether the close timeline should be visible on supporting pages
+- whether the close timeline should stay visible on supporting pages
 
-### 3. Maintain role ownership
+### 3. Prepare Ownership Roles
 
-Go to **Role Settings** and create roles manually or import from Excel.
-
-Example roles:
+Open **Role Settings** and create or import roles such as:
 
 - Revenue
 - Inventory
@@ -147,104 +191,80 @@ Example roles:
 - Accounts Payable
 - Fixed Assets
 
-### 4. Add or import tasks
+### 4. Load the Task Register
 
-Go to **Tasks** and either:
+Open **Tasks** and either:
 
-- add tasks one by one
-- download the import template and upload an Excel file
+- add tasks manually
+- download the template and import from Excel
 
-Supported task fields include:
-
-- title
-- description
-- scheduled date
-- due date
-- status
-- priority
-- role
-
-### 5. Monitor execution
+### 5. Review Execution
 
 Use **Dashboard** to:
 
-- review today’s execution context
+- review today context
 - see progress by role
-- analyze overdue and in-progress ratios
-- click into specific task slices for drill-down review
+- inspect overdue pressure
+- drill into filtered task slices for action
 
-## Excel Import
+## Local-First Behavior
 
-Both **Tasks** and **Role Settings** include template download before import so users can see the expected format first.
+This project stores app data in browser local storage. That means:
 
-Typical task import columns:
+- no backend setup is required
+- no account setup is required
+- data stays on the local browser profile
+- clearing browser storage will reset the app unless data is exported in a future version
 
-- `title`
-- `description`
-- `scheduledDate`
-- `dueDate`
-- `status`
-- `priority`
-- `role`
+## PWA Support
 
-Typical role import columns:
+This repository includes:
 
-- `name`
-- `description`
-- `color`
+- `manifest.webmanifest`
+- `sw.js`
+- offline fallback support
+- install prompt handling
 
-## PWA and Offline Usage
-
-This project includes:
-
-- web app manifest
-- service worker
-- install prompt support
-- offline open support
-
-After running the app in a supported browser, users can install it and continue using locally stored data even when disconnected.
+After launching in a supported browser, users can install the app for a more native desktop experience.
 
 ## Project Structure
 
 ```text
 src/
-  components/      shared UI building blocks
+  components/      reusable UI building blocks
   context/         local app data state and persistence
   data/            demo seed data
   hooks/           install prompt and reusable hooks
-  pages/           Dashboard, Calendar, Tasks, Fiscal Settings, Close Settings, Role Settings
+  pages/           page-level screens
   pwa/             service worker registration
-  styles/          theme and application styles
-  types/           core domain types
-  utils/           fiscal, close, calendar, storage, Excel, import helpers
+  styles/          theme and layout styles
+  types/           domain models
+  utils/           fiscal, close, calendar, Excel, storage, import helpers
 public/
+  icons/           PWA icons
   manifest.webmanifest
-  sw.js
   offline.html
+  sw.js
 ```
 
-## Target User Journey
+## Roadmap Toward Enterprise Edition
 
-1. Open the app and review the seeded demo setup
-2. Adjust fiscal settings and close window rules
-3. Create or import finance roles
-4. Create or import task registers
-5. Use Dashboard and Calendar to monitor execution
-6. Drill into filtered task views for issue analysis
+This MVP is intentionally simple and local-first. A production enterprise version would typically expand into:
 
-## Future Enterprise Expansion
-
-This MVP is intentionally local-first and backend-free. To evolve it into an enterprise product, the next steps would typically be:
-
-- multi-entity and multi-ledger support
+- multi-entity and multi-ledger close management
 - approval workflow and sign-off checkpoints
-- ERP and data warehouse integrations
+- ERP or data warehouse integrations
 - SSO and role-based access control
 - audit log and version history
-- notifications and SLA tracking
-- shared collaboration and comments
+- notification rules and SLA tracking
+- collaboration comments and escalation workflows
 - analytics for bottlenecks and close performance
+
+## Contact
+
+- Author: James
+- Email: [yhpd1234@gmail.com](mailto:yhpd1234@gmail.com)
 
 ## License
 
-This repository is currently provided as a prototype / internal demonstration project. Add your preferred license before broader distribution.
+This repository is currently positioned as a prototype / internal demonstration project. Add your preferred license before broader public distribution.
